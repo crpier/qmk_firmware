@@ -155,8 +155,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                    +-------------+               +-------------+      
  */
 [_UTIL] = LAYOUT(
-    ___, KC_POWER, KC_BRIGHTNESS_DOWN, KC_BRIGHTNESS_UP, ___, ___,           ___, KC_F7, KC_F8, KC_F9, KC_F10, ___, \
-    ___, KC_PWR, KC_VOLD, KC_VOLU, KC_MUTE, RGB_M_P,                                 ___, KC_F4, KC_F5, KC_F6, KC_F11, ___, \
+    ___, KC_KB_POWER, KC_BRIGHTNESS_DOWN, KC_BRIGHTNESS_UP, ___, ___,           ___, KC_F7, KC_F8, KC_F9, KC_F10, ___, \
+    ___, KC_SYSTEM_SLEEP, KC_VOLD, KC_VOLU, KC_MUTE, RGB_M_P,                                 ___, KC_F4, KC_F5, KC_F6, KC_F11, ___, \
     ___, KC_WAKE, KC_MPRV, KC_MPLY, KC_MNXT, RGB_M_B,                                ___, KC_F1, KC_F2, KC_F3, KC_F12, ___, \
                       RGB_HUD, RGB_HUI,                                                       RGB_TOG, RGB_MODE_FORWARD,                            \
                                         ___, ___,                            ___, ___,                                            \
