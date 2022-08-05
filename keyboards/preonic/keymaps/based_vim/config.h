@@ -46,4 +46,24 @@
 
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
-#define TAPPING_TERM 140
+#define TAPPING_TERM 100
+#define IGNORE_MOD_TAP_INTERRUPT
+
+
+// #define MK_KINETIC_SPEED
+#define MOUSEKEY_INTERVAL 16
+#define MOUSEKEY_DELAY 4
+#define MOUSEKEY_MOVE_DELTA 5
+#define MOUSEKEY_MAX_SPEED 12
+#define MOUSEKEY_TIME_TO_MAX 20
+#define MOUSEKEY_WHEEL_DELAY 4
+#define MOUSEKEY_WHEEL_INTERVAL 60
+#define MOUSEKEY_WHEEL_MAX_SPEED 10
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 80
+
+
+#define UNICODE_SELECTED_MODES UC_MAC
+
+
+#define LEADER_TIMEOUT 300
+#define LEADER_NO_TIMEOUT

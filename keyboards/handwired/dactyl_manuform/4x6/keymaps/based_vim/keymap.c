@@ -41,11 +41,11 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* BASE 
  * +-----------------------------------------+                             +-----------------------------------------+
- * |      |   Q  |   W  |   E  |   R  |   T  |                             |   Y  |   U  |   I  |   O  |   P  |      |
+ * | UTF8 |   Q  |   W  |   E  |   R  |   T  |                             |   Y  |   U  |   I  |   O  |   P  | UTF8 |
  * |------+------+------+------+------+------|                             |------+------+------+------+------+------|
- * |      | A/L3 |S/CTRL|D/SUPE|F/ALT |   G  |                             |   H  | J/ALT|K/SUPE|L/CTRL| ;/L3 |      |
+ * |  C-B | A/L3 |S/CTRL|D/SUPE|F/ALT |   G  |                             |   H  | J/ALT|K/SUPE|L/CTRL| ;/L3 |  C-B |
  * |------+------+------+------+------+------|                             |------+------+------+------+------+------|
- * |      |   Z  |   X  |   C  |   V  |   B  |                             |   N  |   M  |   ,  |   .  |   /  |      |
+ * |  C-S |   Z  |   X  |   C  |   V  |   B  |                             |   N  |   M  |   ,  |   .  |   /  |  C-S |
  * +------+------+------+------+-------------+                             +-------------+------+------+------+------+
  *               |      |      |                                                         |      |      |
  *               +-------------+--------------------+               +------+-------------+-------------+
@@ -55,13 +55,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                    +-------------+               +-------------+      
  */
 [_BASE] = LAYOUT( \
-    UNICODE, KC_Q,   KC_W,   HYPR_T(KC_E),   KC_R,   KC_T,           KC_Y,   KC_U,   KC_I,    KC_O,   KC_P,    UNICODE,   \
-    TMUX_OUTER, HOME_A, HOME_S, HOME_D, HOME_F, KC_G,           KC_H,   HOME_J, HOME_K,  HOME_L, HOME_SCLN, TMUX_OUTER, \
-    TMUX_INNER, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,           KC_N,   KC_M,   KC_COMM, KC_DOT, KC_SLSH, TMUX_INNER,   \
-                    ___, ___,                                        ___, ___,        \
-                                    SYM1, ___,                          ___, SYM2,                                     \
-                                    SHIFT_SPACE, UTIL,                      UTIL,  SHIFT_ENTER,                                      \
-                                    KC_LEAD, RESET,                           RESET, KC_LEAD                                       \
+    UNICODE, KC_Q, KC_W, KC_E, KC_R, KC_T,           KC_Y, KC_U, KC_I,    KC_O,   KC_P,    UNICODE,   \
+    KC_LCTL, KC_A, KC_S, KC_D, KC_F, KC_G,           KC_H, KC_J, KC_K,    KC_L,   KC_SCLN, LC_LCTL, \
+    KC_LSFT,  KC_Z, KC_X, KC_C, KC_V, KC_B,           KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_LSFT,   \
+                      ___,  ___,                                    ___,     ___,        \
+                                  SYM1, ___,                          ___, SYM2, \
+                                  KC_SPC, UTIL,                      UTIL,  SHIFT_ENTER,                                      \
+                                  KC_LEAD, RESET,                           RESET, KC_LEAD                                       \
 ),
 
 /* L1 
