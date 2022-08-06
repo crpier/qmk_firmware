@@ -41,27 +41,27 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* BASE 
  * +-----------------------------------------+                             +-----------------------------------------+
- * | UTF8 |   Q  |   W  |   E  |   R  |   T  |                             |   Y  |   U  |   I  |   O  |   P  | UTF8 |
+ * |  OPT |   Q  |   W  |   E  |   R  |   T  |                             |   Y  |   U  |   I  |   O  |   P  |  OPT |
  * |------+------+------+------+------+------|                             |------+------+------+------+------+------|
- * |  C-B | A/L3 |S/CTRL|D/SUPE|F/ALT |   G  |                             |   H  | J/ALT|K/SUPE|L/CTRL| ;/L3 |  C-B |
+ * | SHIFT|   A  |   S  |   D  |   F  |   G  |                             |   H  |   J  |   K  |   L  |   ;  | SHIFT|
  * |------+------+------+------+------+------|                             |------+------+------+------+------+------|
- * |  C-S |   Z  |   X  |   C  |   V  |   B  |                             |   N  |   M  |   ,  |   .  |   /  |  C-S |
+ * | CTRL |   Z  |   X  |   C  |   V  |   B  |                             |   N  |   M  |   ,  |   .  |   /  | CTRL |
  * +------+------+------+------+-------------+                             +-------------+------+------+------+------+
- *               |      |      |                                                         |      |      |
+ *               | UTIL | NAV  |                                                         |  NAV | UTIL |
  *               +-------------+--------------------+               +------+-------------+-------------+
- *                             |  L1  |SHIFT |      |               |      | SHIFT|  L2  |
+ *                             |  L1  |LEADER| HYPER|               | RESET| UTF8 |  L2  |
  *                             |------+------|------|               |------|------+------|
- *                                    | SPC  |      |               |      | ENTER|      
+ *                                    | SPC  |  CMD |               |  CMD | ENTER|      
  *                                    +-------------+               +-------------+      
  */
 [_BASE] = LAYOUT( \
-    UNICODE, KC_Q, KC_W, KC_E, KC_R, KC_T,           KC_Y, KC_U, KC_I,    KC_O,   KC_P,    UNICODE,   \
-    KC_LCTL, KC_A, KC_S, KC_D, KC_F, KC_G,           KC_H, KC_J, KC_K,    KC_L,   KC_SCLN, LC_LCTL, \
-    KC_LSFT,  KC_Z, KC_X, KC_C, KC_V, KC_B,           KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_LSFT,   \
-                      ___,  ___,                                    ___,     ___,        \
+    KC_LALT, KC_Q, KC_W, KC_E, KC_R, KC_T,           KC_Y, KC_U, KC_I,    KC_O,   KC_P,    KC_LALT,   \
+    KC_LSFT,  KC_A, KC_S, KC_D, KC_F, KC_G,           KC_H, KC_J, KC_K,    KC_L,   KC_SCLN, KC_LSFT, \
+    KC_LCTL, KC_Z, KC_X, KC_C, KC_V, KC_B,           KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH,  KC_LCTL,   \
+                   UTIL,  NAV,                                    NAV,     UTIL,        \
                                   SYM1, ___,                          ___, SYM2, \
-                                  KC_SPC, UTIL,                      UTIL,  SHIFT_ENTER,                                      \
-                                  KC_LEAD, RESET,                           RESET, KC_LEAD                                       \
+                                  KC_SPC, KC_LEAD,                      UNICODE,   KC_ENTER,                                      \
+                                  KC_LGUI,    KC_HYPR,                            RESET, KC_LGUI \
 ),
 
 /* L1 
