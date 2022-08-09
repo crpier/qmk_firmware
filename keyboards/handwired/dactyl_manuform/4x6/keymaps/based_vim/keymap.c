@@ -181,22 +181,22 @@ void matrix_scan_user(void) {
     leader_end();
 
     SEQ_ONE_KEY(KC_S) {
-      send_unicode_hex_string("00AF 005C 005F 0028 30C4 0029 005F 002F 00AF");
+      send_unicode_string("¯\\_(ツ)_/¯");
     }
     SEQ_ONE_KEY(KC_C) {
-      send_unicode_hex_string("274C");
+      send_unicode_string("274C");
     }
     SEQ_ONE_KEY(KC_A) {
-      send_unicode_hex_string("256E 0028 256F 0020 005F 2570 0020 0029 256D");
+      send_unicode_string("256E 0028 256F 0020 005F 2570 0020 0029 256D");
     }
     SEQ_ONE_KEY(KC_T) {
-      send_unicode_hex_string("2705");
+      send_unicode_string("2705");
     }
     SEQ_ONE_KEY(KC_D) {
-      send_unicode_hex_string("033F 033F 0020 033F 033F 0020 033F 033F 0020 033F 0027 033F 0027 005C 0335 0347 033F 033F 005C 0437 003D 0020 0028 0020 2580 0020 035C 035E 0296 2580 0029 0020 003D 03B5 002F 0335 0347 033F 033F 002F 2019 033F 2019 033F 0020 033F 0020 033F 033F 0020 033F 033F 0020 033F 033F");
+      send_unicode_string("033F 033F 0020 033F 033F 0020 033F 033F 0020 033F 0027 033F 0027 005C 0335 0347 033F 033F 005C 0437 003D 0020 0028 0020 2580 0020 035C 035E 0296 2580 0029 0020 003D 03B5 002F 0335 0347 033F 033F 002F 2019 033F 2019 033F 0020 033F 0020 033F 033F 0020 033F 033F 0020 033F 033F");
     }
     SEQ_ONE_KEY(KC_Z) {
-      send_unicode_hex_string("256E 0028 256F 002D 2570 201D 0029 256D");
+      send_unicode_string("256E 0028 256F 002D 2570 201D 0029 256D");
     }
   }
 }
