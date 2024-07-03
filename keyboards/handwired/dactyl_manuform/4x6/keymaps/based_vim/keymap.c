@@ -35,40 +35,39 @@
 #define SHIFT_SPACE LSFT_T(KC_SPACE)
 
 // App specific keys
-#define TMUX_INNER LCTL(KC_S)
-#define TMUX_OUTER LCTL(KC_A)
+#define TMUX LCTL(KC_S)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* BASE 
+/* BASE
  * +-----------------------------------------+                             +-----------------------------------------+
- * |      |   Q  |   W  |   E  |   R  |   T  |                             |   Y  |   U  |   I  |   O  |   P  |      |
+ * | TMUX |   Q  |   W  |HYPR/E|   R  |   T  |                             |   Y  |   U  |   I  |   O  |   P  |UNICOD|
  * |------+------+------+------+------+------|                             |------+------+------+------+------+------|
- * |      | A/L3 |S/CTRL|D/SUPE|F/ALT |   G  |                             |   H  | J/ALT|K/SUPE|L/CTRL| ;/L3 |      |
+ * | CMD  | A/NAV|S/CTRL|D/CMD |F/ALT |   G  |                             |   H  | J/ALT|K/CMD |L/CTRL| ;/NAV| ALT  |
  * |------+------+------+------+------+------|                             |------+------+------+------+------+------|
- * |      |   Z  |   X  |   C  |   V  |   B  |                             |   N  |   M  |   ,  |   .  |   /  |      |
+ * | CTRL |   Z  |   X  |   C  |   V  |   B  |                             |   N  |   M  |   ,  |   .  |   /  | CTRL |
  * +------+------+------+------+-------------+                             +-------------+------+------+------+------+
  *               |      |      |                                                         |      |      |
  *               +-------------+--------------------+               +------+-------------+-------------+
- *                             |  L1  |SHIFT |      |               |      | SHIFT|  L2  |
+ *                             |  L1  | UTIL |RESET |               | RESET| UTIL |  L2  |
  *                             |------+------|------|               |------|------+------|
- *                                    | SPC  |      |               |      | ENTER|      
- *                                    +-------------+               +-------------+      
+ *                                    |SPC/SH|      |               |      |ENT/SH|
+ *                                    +-------------+               +-------------+
  */
 [_BASE] = LAYOUT( \
-    UNICODE, KC_Q,   KC_W,   HYPR_T(KC_E),   KC_R,   KC_T,           KC_Y,   KC_U,   KC_I,    KC_O,   KC_P,    UNICODE,   \
-    KC_LSFT, HOME_A, HOME_S, HOME_D, HOME_F, KC_G,           KC_H,   HOME_J, HOME_K,  HOME_L, HOME_SCLN, KC_LSFT, \
-    TMUX_INNER, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,           KC_N,   KC_M,   KC_COMM, KC_DOT, KC_SLSH, TMUX_INNER,   \
+    TMUX, KC_Q,   KC_W,   HYPR_T(KC_E),   KC_R,   KC_T,           KC_Y,   KC_U,   KC_I,    KC_O,   KC_P,    UNICODE,   \
+    KC_LSFT, HOME_A, HOME_S, HOME_D, HOME_F, KC_G,                KC_H,   HOME_J, HOME_K,  HOME_L, HOME_SCLN, KC_LSFT, \
+    TMUX, KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,                   KC_N,   KC_M,   KC_COMM, KC_DOT, KC_SLSH, TMUX,   \
                     ___, ___,                                        ___, ___,        \
                                     SYM1, ___,                          ___, SYM2,                                     \
                                     SHIFT_SPACE, UTIL,                      UTIL,  SHIFT_ENTER,                                      \
-                                    KC_LEAD, RESET,                           RESET, KC_LEAD                                       \
+                                    _, RESET,                               RESET, _                                       \
 ),
 
-/* L1 
+/* L1
  * +-----------------------------------------+                             +-----------------------------------------+
  * |      |      |      | INS  |PRTSCR|      |                             |      |   7  |   8  |   9  |   :  |      |
  * |------+------+------+------+------+------|                             |------+------+------+------+------+------|
- * |      | CAPS | BSPC | TAB  | ESC  |      |                             |      |   4  |   5  |   6  |   ,         |
+ * | CAPS |CAPS_W| BSPC | TAB  | ESC  |      |                             |      |   4  |   5  |   6  |   ,  |      |
  * |------+------+------+------+------+------|                             |------+------+------+------+------+------|
  * |      |      |      |      |      |      |                             |      |   1  |   2  |   3  |   .  |      |
  * +------+------+------+------+-------------+                             +-------------+------+------+------+------+
@@ -76,12 +75,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *               +-------------+--------------------+               +------+-------------+-------------+
  *                             |      |      |      |               |      |  L4  |      |
  *                             |------+------|------|               |------|------+------|
- *                                    |      |      |               |      |      |      
- *                                    +-------------+               +-------------+      
+ *                                    |      |      |               |      |      |
+ *                                    +-------------+               +-------------+
  */
 [_SYM1] = LAYOUT(
     ___,  ___, ___,  KC_INS, KC_PSCREEN,   ___,              ___, KC_7, KC_8, KC_9, KC_COLON, ___, \
-    ___,  KC_CAPS, KC_BSPACE, KC_TAB, KC_ESC, ___,           ___, KC_4, KC_5, KC_6, KC_COMMA, ___, \
+    KC_CAPS,  KC_CAPS, KC_BSPACE, KC_TAB, KC_ESC, ___,           ___, KC_4, KC_5, KC_6, KC_COMMA, ___, \
     ___, ___, ___, ___, ___, ___,                            ___, KC_1, KC_2, KC_3, KC_DOT, ___, \
                    ___, ___,                                      ___, ___,  \
                                  ___, ___,     ___, KC_0,                                      \
@@ -89,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  ___, ___,     ___,   ___                                       \
 ),
 
-/* L2 
+/* L2
  * +------+----------------------------------+                             +-----------------------------------------+
  * |      |  |   | &    | ^    | $    | !    |                             |      |   {  |   }  |      |      |      |
  * |------|------+------+------+------+------+                             |------+------+------+------+------+------|
@@ -101,8 +100,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *               +-------------+--------------------+               +------+-------------+-------------+
  *                             |             |      |               |      |             |
  *                             |------+------|------|               |------|------+------|
- *                                    |      |      |               |      |      |      
- *                                    +-------------+               +-------------+      
+ *                                    |      |      |               |      |      |
+ *                                    +-------------+               +-------------+
  */
 [_SYM2] = LAYOUT(
     ___,  KC_PIPE, KC_AMPERSAND, KC_CIRCUMFLEX, KC_DOLLAR, KC_EXCLAIM,             ___, KC_LEFT_CURLY_BRACE,    KC_RIGHT_CURLY_BRACE,    ___, ___, ___, \
@@ -115,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 ),
 
-/* L3 
+/* L3
  * +------+----------------------------------+                             +-----------------------------------------+
  * |      |      |LCLICK| MUP  |RCLICK|      |                             | HOME | PGDN | PGUP |  END |      |      |
  * |------|------+------+------+------+------+                             |------+------+------+------+------+------|
@@ -127,8 +126,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *               +-------------+--------------------+               +------+-------------+-------------+
  *                             |      |      |      |               |      |      |      |
  *                             |------+------|------|               |------|------+------|
- *                                    |      |      |               |      |      |      
- *                                    +-------------+               +-------------+      
+ *                                    |      |      |               |      |      |
+ *                                    +-------------+               +-------------+
  */
 [_NAV] = LAYOUT(
     ___, ___, KC_MS_BTN1, KC_MS_UP, KC_MS_BTN2, ___,                           KC_HOME, KC_PGDOWN, KC_PGUP, KC_END, ___, ___, \
@@ -139,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                               ___, ___,                                           ___, ___,                                            \
                               ___, ___,                                           ___, ___                                             \
 ),
-/* L4 
+/* L4
  * +------+----------------------------------+                             +-----------------------------------------+
  * |      |POWER |BRGHDN|BRGHDN|      |      |                             |      |  F7  |  F8  |  F9  |  F10 |      |
  * |------|------+------+------+------+------+                             |------+------+------+------+------+------|
@@ -151,8 +150,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *               +-------------+--------------------+               +------+-------------+-------------+
  *                             |             |      |               |      |             |
  *                             |------+------|------|               |------|------+------|
- *                                    |      |      |               |      |      |      
- *                                    +-------------+               +-------------+      
+ *                                    |      |      |               |      |      |
+ *                                    +-------------+               +-------------+
  */
 [_UTIL] = LAYOUT(
     ___, KC_KB_POWER, KC_BRIGHTNESS_DOWN, KC_BRIGHTNESS_UP, ___, ___,           ___, KC_F7, KC_F8, KC_F9, KC_F10, ___, \
@@ -171,7 +170,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___, ___,                      ___, ___,                   \
                       ___, ___,                      ___, ___,                  \
                       ___, ___,                      ___, ___                  \
-) 
+)
 };
 
 LEADER_EXTERNS();
