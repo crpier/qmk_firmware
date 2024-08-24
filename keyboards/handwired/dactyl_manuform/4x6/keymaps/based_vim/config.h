@@ -49,10 +49,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_LIMIT_VAL 255
 
 
-#define RGBLIGHT_EFFECT_CHRISTMAS
-#undef RGBLIGHT_DEFAULT_MODE
-#define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_CHRISTMAS
-// #define RGBLIGHT_LAYERS
+// #define RGBLIGHT_EFFECT_ALTERNATING
+// #define RGBLIGHT_EFFECT_BREATHING
+// #define RGBLIGHT_EFFECT_CHRISTMAS
+// #define RGBLIGHT_EFFECT_KNIGHT
+// #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+// #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+// #define RGBLIGHT_EFFECT_RGB_TEST
+// #define RGBLIGHT_EFFECT_SNAKE
+// #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+// #define RGBLIGHT_EFFECT_TWINKLE
+
+// set the default color to white
+#define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_STATIC_LIGHT  // Set to static light mode
+#define RGBLIGHT_DEFAULT_HUE 0                            // Hue to 0 (doesn't matter much for white)
+#define RGBLIGHT_DEFAULT_SAT 0                            // Saturation to 0 for white
+#define RGBLIGHT_DEFAULT_VAL 255                          // Maximum brightness
+
+#define RGBLIGHT_LAYERS
 
 #undef MOUSEKEY_INTERVAL
 #define MOUSEKEY_INTERVAL 16
