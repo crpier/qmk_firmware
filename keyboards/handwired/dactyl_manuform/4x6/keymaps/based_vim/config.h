@@ -84,11 +84,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_WHEEL_MAX_SPEED 12
 
 // Tapping settings
-// #define HOLD_ON_OTHER_KEY_PRESS
-#define LEADER_NO_TIMEOUT
-#define LEADER_TIMEOUT 300
 #define TAPPING_TERM 130
-#define UNICODE_SELECTED_MODES UC_MAC
+#define UNICODE_SELECTED_MODES UNICODE_MODE_MACOS, UNICODE_MODE_WINCOMPOSE, UNICODE_MODE_LINUX
 
 
 // Space saving settings
