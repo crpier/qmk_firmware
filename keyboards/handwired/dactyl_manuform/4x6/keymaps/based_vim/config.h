@@ -39,24 +39,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define ENCODER_DIRECTION_FLIP
 
 // Underglow
-#undef RGB_DI_PIN
-#define RGB_DI_PIN D1
-#undef RGBLED_NUM
-#define RGBLED_NUM 18    // Number of LEDs
+#undef WS2812_DI_PIN
+#define WS2812_DI_PIN D1
+#undef RGBLIGHT_LED_COUNT
+#define RGBLIGHT_LED_COUNT 18    // Number of LEDs
 #define RGBLED_SPLIT { 9, 9 }
+#define RGBLIGHT_SPLIT
 #define RGBLIGHT_SLEEP
-#define RGBLIGHT_LIMIT_VAL 150
-#define RGBLIGHT_ANIMATIONS
-#define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_MOOD
-#define RGBLIGHT_LAYERS
+#define RGBLIGHT_LIMIT_VAL 255
 
-// Mouse settings
-// #undef MOUSEKEY_INTERVAL
-// #define MOUSEKEY_INTERVAL 23
-// #undef MOUSEKEY_MAX_SPEED
-// #define MOUSEKEY_MAX_SPEED 12
-// #undef MOUSEKEY_TIME_TO_MAX
-// jdefine MOUSEKEY_TIME_TO_MAX 29
+
+#define RGBLIGHT_EFFECT_CHRISTMAS
+#undef RGBLIGHT_DEFAULT_MODE
+#define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_CHRISTMAS
+// #define RGBLIGHT_LAYERS
 
 #undef MOUSEKEY_INTERVAL
 #define MOUSEKEY_INTERVAL 16
@@ -67,13 +63,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // The default is 300. Let's try and make this as low as possible while keeping the cursor responsive
 #undef MOUSEKEY_DELAY
 #define MOUSEKEY_DELAY 100
+#undef MOUSEKEY_MAX_SPEED
+#define MOUSEKEY_MAX_SPEED 16
 
 #undef MOUSEKEY_WHEEL_MAX_SPEED
 #define MOUSEKEY_WHEEL_MAX_SPEED 12
 
 // Tapping settings
 // #define HOLD_ON_OTHER_KEY_PRESS
-#define IGNORE_MOD_TAP_INTERRUPT
 #define LEADER_NO_TIMEOUT
 #define LEADER_TIMEOUT 300
 #define TAPPING_TERM 130
