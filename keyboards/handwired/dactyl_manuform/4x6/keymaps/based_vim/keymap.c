@@ -1,25 +1,27 @@
 #include QMK_KEYBOARD_H
 
-
-// LAYERS
-#define _BASE 0
-#define _SYM1 1
-#define _SYM2 2
-#define _NAV 3
-#define _UTIL 4
-#define _UNICODE 5
-#define _TYPING 6
-
 // FILLERS
 #define _______ KC_TRANSPARENT
 #define __NOP__ KC_TRANSPARENT
 
+// LAYERS
+#define _BASE    0
+#define _TYPING  1
+#define _SYM1    2
+#define _SYM2    3
+#define _NAV     4
+#define _UTIL    5
+#define _UNICODE 6
+
 // LAYER KEYS
-#define SYM1  OSL(_SYM1)
-#define SYM2  OSL(_SYM2)
-#define NAV   OSL(_NAV)
-#define UTIL  OSL(_UTIL)
-#define UNICODE  OSL(_UNICODE)
+#define SYM1    OSL(_SYM1)
+#define SYM2    OSL(_SYM2)
+#define NAV     OSL(_NAV)
+#define UTIL    OSL(_UTIL)
+#define UNICODE OSL(_UNICODE)
+// Change default layer
+#define TYPING  DF (_TYPING)
+#define BASE_DF DF (_BASE)
 
 // LEFT HOME ROW MODS
 #define HOME_A LT(_NAV, KC_A)
@@ -84,12 +86,12 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     // it's imperative their order here matches the layer number
     // for the rest of rg the code to work correctly
     base_layer_rgb,
+    typing_layer_rgb,
     sym1_layer_rgb,
     sym2_layer_rgb,
     nav_layer_rgb,
     util_layer_rgb,
     unicode_layer_rgb,
-    typing_layer_rgb,
     // this does not corresponde to an actual layer
     // so leave it for last
     caps_lock_rgb
@@ -105,8 +107,13 @@ bool led_update_user(led_t led_state) {
     return true;
 }
 
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+    rgblight_set_layer_state(_BASE,    layer_state_cmp(state, _BASE));
+    rgblight_set_layer_state(_TYPING,    layer_state_cmp(state, _TYPING));
+    return state;
+}
+
 layer_state_t layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(_UNICODE,    layer_state_cmp(state, _BASE));
     rgblight_set_layer_state(_SYM1,       layer_state_cmp(state, _SYM1));
     rgblight_set_layer_state(_SYM2,       layer_state_cmp(state, _SYM2));
     rgblight_set_layer_state(_NAV,        layer_state_cmp(state, _NAV));
@@ -118,7 +125,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* BASE
  * +-----------------------------------------+                          +-----------------------------------------+
- * | TMUX |   Q  |   W  |HYPR/E|   R  |   T  |                          |   Y  |   U  |   I  |   O  |   P  |UNICOD|
+ * |      |   Q  |   W  |HYPR/E|   R  |   T  |                          |   Y  |   U  |   I  |   O  |   P  |UNICOD|
  * |------+------+------+------+------+------|                          |------+------+------+------+------+------|
  * | CMD  |A/NAV |S/CTRL|D/CMD |F/ALT |   G  |                          |   H  | J/ALT|K/CMD |L/CTRL| ;/NAV| ALT  |
  * |------+------+------+------+------+------|                          |------+------+------+------+------+------|
@@ -131,14 +138,39 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                    |SPC/SH|      |            |      |ENT/SH|
  *                                    +-------------+            +-------------+
  */
-[_BASE] = LAYOUT( \
-    TMUX_PR, KC_Q,    KC_W,    HYPR_E,  KC_R,    KC_T,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    UNICODE, \
-    KC_LSFT, HOME_A,  HOME_S,  HOME_D,  HOME_F,  KC_G,        KC_H,    HOME_J,  HOME_K,  HOME_L,  HOME_SC, KC_LSFT, \
+[_BASE] = LAYOUT(                                                                                                   \
+    _______,  KC_Q,    KC_W,    HYPR_E,  KC_R,    KC_T,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,   UNICODE, \
+    KC_LSFT, HOME_A,  HOME_S,  HOME_D,  HOME_F,  KC_G,        KC_H,    HOME_J,  HOME_K,  HOME_L,  HOME_SC, _______, \
     TMUX_PR, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, TMUX_PR, \
-                      _______, _______,                                                   _______, _______,      \
+                      _______, _______,                                         _______, _______,                   \
                                         SYM1,    __NOP__,     __NOP__, SYM2,                                        \
-                                        SFT_SPC, UTIL,        UTIL,    SFT_ENT,                                       \
-                                        _______, _______,     _______, _______                                      \
+                                        SFT_SPC, UTIL,        UTIL,    SFT_ENT,                                     \
+                                        _______, TYPING,      _______, _______                                      \
+),
+
+/* TYPING
+ * +-----------------------------------------+                          +-----------------------------------------+
+ * |      |   Q  |   W  |   E  |   R  |   T  |                          |   Y  |   U  |   I  |   O  |   P  |      |
+ * |------+------+------+------+------+------|                          |------+------+------+------+------+------|
+ * |      |   A  |   S  |   D  |   F  |   G  |                          |   H  |   J  |   K  |   L  |   ;  |      |
+ * |------+------+------+------+------+------|                          |------+------+------+------+------+------|
+ * |      |   Z  |   X  |   C  |   V  |   B  |                          |   N  |   M  |   ,  |   .  |   /  |      |
+ * +------+------+------+------+-------------+                          +-------------+------+------+------+------+
+ *               |      |      |                                                      |      |      |
+ *               +-------------+--------------------+            +------+-------------+-------------+
+ *                             |      |      |      |            |      |      |      |
+ *                             |------+------|------|            |------|------+------|
+ *                                    |      |      |            |      |      |
+ *                                    +-------------+            +-------------+
+ */
+[_TYPING] = LAYOUT(                                                                                                 \
+    KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    UNICODE, \
+    KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,        KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_RSFT, \
+    KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RCTL, \
+                      _______, _______,                                         _______, _______,                   \
+                                        SYM1,    __NOP__,     __NOP__, SYM2,                                        \
+                                        KC_SPC,  KC_LALT,     KC_RGUI, KC_ENT,                                      \
+                                        _______, BASE_DF,     _______, _______                                      \
 ),
 
 /* L1
@@ -156,6 +188,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                    |      |      |               |      |      |
  *                                    +-------------+               +-------------+
  */
+
 [_SYM1] = LAYOUT(
     _______,       _______,      _______,      _______,       KC_PSCR,    _______,                   _______,     KC_7,     KC_8,      KC_9,     KC_COLN,   _______,               \
     KC_CAPS,   CW_TOGG,  KC_BSPC,  KC_TAB,    KC_ESC,     _______,                   _______,     KC_4,     KC_5,      KC_6,     KC_COMM,    _______,                                        \
@@ -266,6 +299,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       _______, __NOP__,                      __NOP__, _______,                   \
                       _______, _______,                      _______, _______,                  \
                       _______, _______,                      _______, _______                  \
-)
-};
+),
 
+};
