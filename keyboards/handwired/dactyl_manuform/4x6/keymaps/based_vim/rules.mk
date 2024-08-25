@@ -1,5 +1,6 @@
 # RGB underglow
 RGBLIGHT_ENABLE = yes
+RGBLIGHT_SLEEP_ENABLE = yes
 # Add audio and system control
 EXTRAKEY_ENABLE = yes
 # Link time optimization: take longer to compile, but create smaller bundle
