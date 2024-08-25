@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 
 
+// LAYERS
 #define _BASE 0
 #define _SYM1 1
 #define _SYM2 2
@@ -10,7 +11,8 @@
 #define _TYPING 6
 
 // FILLERS
-#define ___ KC_TRANSPARENT
+#define _______ KC_TRANSPARENT
+#define __NOP__ KC_TRANSPARENT
 
 // LAYER KEYS
 #define SYM1  OSL(_SYM1)
@@ -28,17 +30,24 @@
 
 
 // RIGHT HOME ROW MODS
-#define HOME_SCLN LT(_NAV, KC_SCLN)
+#define HOME_SC LT(_NAV, KC_SCLN)
 #define HOME_L LCTL_T(KC_L)
 #define HOME_K LGUI_T(KC_K)
 #define HOME_J LALT_T(KC_J)
 
 // Other dual function keys
-#define S_ENT LSFT_T(KC_ENTER)
-#define S_SPC LSFT_T(KC_SPACE)
+#define SFT_ENT LSFT_T(KC_ENTER)
+#define SFT_SPC LSFT_T(KC_SPACE)
 
 // App specific keys
-#define TMUX LCTL(KC_S)
+#define TMUX_PR LCTL(KC_S)
+
+// Abbreviations
+#define RO_T UC(0x021B)
+#define RO_A_U UC(0x0103)
+#define RO_A_D UC(0x00E2)
+#define RO_S UC(0x0219)
+#define RO_I UC(0x00EE)
 
 
 // RGB colors related to layers
@@ -81,15 +90,14 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     util_layer_rgb,
     unicode_layer_rgb,
     typing_layer_rgb,
-    // this is not related to an actual layer
+    // this does not corresponde to an actual layer
+    // so leave it for last
     caps_lock_rgb
 );
 
 void keyboard_post_init_user(void) {
     // Enable the LED layers
     rgblight_layers = my_rgb_layers;
-    rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT); // Set the mode to static
-    rgblight_sethsv_noeeprom(0, 0, 255);       // Set hue, saturation, and
 }
 
 bool led_update_user(led_t led_state) {
@@ -98,40 +106,39 @@ bool led_update_user(led_t led_state) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    // weird workaround that I'm not sure why I have to do?
     rgblight_set_layer_state(_UNICODE,    layer_state_cmp(state, _BASE));
-    rgblight_set_layer_state(_SYM1,    layer_state_cmp(state, _SYM1));
-    rgblight_set_layer_state(_SYM2,    layer_state_cmp(state, _SYM2));
-    rgblight_set_layer_state(_NAV,     layer_state_cmp(state, _NAV));
-    rgblight_set_layer_state(_UTIL,    layer_state_cmp(state, _UTIL));
-    rgblight_set_layer_state(_UNICODE, layer_state_cmp(state, _UNICODE));
+    rgblight_set_layer_state(_SYM1,       layer_state_cmp(state, _SYM1));
+    rgblight_set_layer_state(_SYM2,       layer_state_cmp(state, _SYM2));
+    rgblight_set_layer_state(_NAV,        layer_state_cmp(state, _NAV));
+    rgblight_set_layer_state(_UTIL,       layer_state_cmp(state, _UTIL));
+    rgblight_set_layer_state(_UNICODE,    layer_state_cmp(state, _UNICODE));
     return state;
 }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* BASE
- * +-----------------------------------------+                                  +-----------------------------------------+
- * | TMUX |   Q  |   W  |HYPR/E|   R  |   T  |                                  |   Y  |   U  |   I  |   O  |   P  |UNICOD|
- * |------+------+------+------+------+------|                                  |------+------+------+------+------+------|
- * | CMD  |A/NAV |S/CTRL|D/CMD |F/ALT |   G  |                                  |   H  | J/ALT|K/CMD |L/CTRL| ;/NAV| ALT  |
- * |------+------+------+------+------+------|                                  |------+------+------+------+------+------|
- * | CTRL |   Z  |   X  |   C  |   V  |   B  |                                  |   N  |   M  |   ,  |   .  |   /  | CTRL |
- * +------+------+------+------+-------------+                                  +-------------+------+------+------+------+
- *               |      |      |                                                              |      |      |
- *               +-------------+--------------------+                    +------+-------------+-------------+
- *                             |  L1  | UTIL |      |                    |      | UTIL |  L2  |
- *                             |------+------|------|                    |------|------+------|
- *                                    |SPC/SH|      |                    |      |ENT/SH|
- *                                    +-------------+                    +-------------+
+ * +-----------------------------------------+                          +-----------------------------------------+
+ * | TMUX |   Q  |   W  |HYPR/E|   R  |   T  |                          |   Y  |   U  |   I  |   O  |   P  |UNICOD|
+ * |------+------+------+------+------+------|                          |------+------+------+------+------+------|
+ * | CMD  |A/NAV |S/CTRL|D/CMD |F/ALT |   G  |                          |   H  | J/ALT|K/CMD |L/CTRL| ;/NAV| ALT  |
+ * |------+------+------+------+------+------|                          |------+------+------+------+------+------|
+ * | CTRL |   Z  |   X  |   C  |   V  |   B  |                          |   N  |   M  |   ,  |   .  |   /  | CTRL |
+ * +------+------+------+------+-------------+                          +-------------+------+------+------+------+
+ *               |      |      |                                                      |      |      |
+ *               +-------------+--------------------+            +------+-------------+-------------+
+ *                             |  L1  | UTIL |      |            |      | UTIL |  L2  |
+ *                             |------+------|------|            |------|------+------|
+ *                                    |SPC/SH|      |            |      |ENT/SH|
+ *                                    +-------------+            +-------------+
  */
 [_BASE] = LAYOUT( \
-    TMUX,      KC_Q,     KC_W,     HYPR_E,    KC_R,       KC_T,                  KC_Y,    KC_U,     KC_I,      KC_O,     KC_P,       UNICODE,           \
-    KC_LSFT,   HOME_A,   HOME_S,   HOME_D,    HOME_F,     KC_G,                  KC_H,    HOME_J,   HOME_K,    HOME_L,   HOME_SCLN,  KC_LSFT,           \
-    TMUX,      KC_Z,     KC_X,     KC_C,      KC_V,       KC_B,                  KC_N,    KC_M,     KC_COMM,   KC_DOT,   KC_SLSH,    TMUX,              \
-                         ___,      ___,                                                             ___,       ___,                                     \
-                                              SYM1,       ___,                   ___,   SYM2,                                                           \
-                                              S_SPC,      UTIL,                  UTIL,  S_ENT,                                                          \
-                                              ___,        ___,                   ___,   ___                                                             \
+    TMUX_PR, KC_Q,    KC_W,    HYPR_E,  KC_R,    KC_T,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    UNICODE, \
+    KC_LSFT, HOME_A,  HOME_S,  HOME_D,  HOME_F,  KC_G,        KC_H,    HOME_J,  HOME_K,  HOME_L,  HOME_SC, KC_LSFT, \
+    TMUX_PR, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, TMUX_PR, \
+                      _______, _______,                                                   _______, _______,      \
+                                        SYM1,    __NOP__,     __NOP__, SYM2,                                        \
+                                        SFT_SPC, UTIL,        UTIL,    SFT_ENT,                                       \
+                                        _______, _______,     _______, _______                                      \
 ),
 
 /* L1
@@ -150,13 +157,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                    +-------------+               +-------------+
  */
 [_SYM1] = LAYOUT(
-    ___,       ___,      ___,      ___,       KC_PSCR,    ___,                   ___,     KC_7,     KC_8,      KC_9,     KC_COLON,   ___,               \
-    KC_CAPS,   KC_CAPS,  KC_BSPC,  KC_TAB,    KC_ESC,     ___,                   ___,     KC_4,     KC_5,      KC_6,     KC_COMM,    ___,                                        \
-    ___,       ___,      ___,      ___,       ___,        ___,                   ___,     KC_1,     KC_2,      KC_3,     KC_DOT,     ___,                                                        \
-                         ___,      ___,                                                             ___,       ___,                                                                             \
-                                              ___,        ___,                   ___,   KC_0,                                                                                               \
-                                              ___,        ___,                   ___,   ___,                                                                                               \
-                                              ___,        ___,                   ___,   ___                                                                                               \
+    _______,       _______,      _______,      _______,       KC_PSCR,    _______,                   _______,     KC_7,     KC_8,      KC_9,     KC_COLN,   _______,               \
+    KC_CAPS,   CW_TOGG,  KC_BSPC,  KC_TAB,    KC_ESC,     _______,                   _______,     KC_4,     KC_5,      KC_6,     KC_COMM,    _______,                                        \
+    _______,       _______,      _______,      _______,       _______,        _______,                   _______,     KC_1,     KC_2,      KC_3,     KC_DOT,     _______,                                                        \
+                         _______,      _______,                                                             _______,       _______,                                                                             \
+                                              _______,        _______,                   _______,   KC_0,                                                                                               \
+                                              _______,        _______,                   _______,   _______,                                                                                               \
+                                              _______,        _______,                   _______,   _______                                                                                               \
 ),
 
 /* L2
@@ -175,13 +182,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                    +-------------+               +-------------+
  */
 [_SYM2] = LAYOUT(
-    ___,  KC_PIPE, KC_AMPR, KC_CIRC, KC_DLR, KC_EXLM,                       ___, KC_LCBR,    KC_RCBR,    ___, ___, ___, \
-    ___, KC_EQUAL, KC_PLUS, KC_UNDERSCORE, KC_MINUS, KC_AT,                        ___, KC_LBRC, KC_RBRC, KC_BSPC, KC_PERCENT, ___, \
-    ___, KC_TILDE,  KC_GRAVE,   KC_QUOTE,   KC_DOUBLE_QUOTE,  KC_HASH,             ___, KC_LPRN, KC_RPRN, KC_ASTR, KC_BSLS, ___, \
-                      ___, ___,                                                   ___,  ___,                    \
-                                        ___, ___,                                   ___, ___,                                          \
-                                        ___, ___,                                   ___,  ___,                                      \
-                                        ___, ___,                                     ___, ___                                        \
+    _______,       KC_PIPE,  KC_AMPR,  KC_CIRC,   KC_DLR,     KC_EXLM,               _______,     KC_LCBR,  KC_RCBR,   _______,      _______,        _______,   \
+    _______,       KC_EQL,   KC_PLUS,  KC_UNDS,   KC_MINS,    KC_AT,                 _______,     KC_LBRC,  KC_RBRC,   KC_BSPC,  KC_PERC,    _______,   \
+    _______,       KC_TILDE, KC_GRAVE, KC_QUOTE,  KC_DQUO,    KC_HASH,               _______,     KC_LPRN,  KC_RPRN,   KC_ASTR,  KC_BSLS,    _______,   \
+                         _______,      _______,                                                             _______,       _______,                         \
+                                              _______,        __NOP__,                   __NOP__,   _______,                                                \
+                                              _______,        _______,                   _______,   _______,                                                \
+                                              _______,        _______,                   _______,   _______                                                 \
 
 ),
 
@@ -201,13 +208,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                    +-------------+               +-------------+
  */
 [_NAV] = LAYOUT(
-    ___, ___, KC_BTN1, KC_MS_U, KC_BTN2, ___,                              KC_HOME, KC_PGDN, KC_PGUP, KC_END, ___, ___, \
-    ___, ___, KC_MS_L, KC_MS_D, KC_MS_R, ___,                              KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, ___, ___, \
-    ___, KC_WH_L, KC_WH_U ,KC_WH_D, KC_WH_R, ___,                          ___, KC_ACL0, KC_ACL1, KC_ACL2, ___, ___, \
-                      ___, ___,                                                 KC_INS, ___,                            \
-                              KC_DEL, ___,                        ___, ___,                                            \
-                              ___, ___,                                           ___, ___,                                            \
-                              ___, ___,                                           ___, ___                                             \
+    _______,       _______,      KC_BTN1,  KC_MS_U,   KC_BTN2,    _______,                   KC_HOME, KC_PGDN,  KC_PGUP,   KC_END,   _______,       _______, \
+    _______,       _______,      KC_MS_L,  KC_MS_D,   KC_MS_R,    _______,                   KC_LEFT, KC_DOWN,  KC_UP,     KC_RGHT, _______,       _______, \
+    _______,       KC_WH_L,  KC_WH_U,  KC_WH_D,   KC_WH_R,    _______,                   _______,     KC_ACL0,  KC_ACL1,   KC_ACL2,  _______,       _______, \
+                         _______,      _______,                                                             KC_INS,    _______,                            \
+                                              KC_DEL,     __NOP__,                   __NOP__,   _______,                                            \
+                                              _______,        _______,                   _______,   _______,                                            \
+                                              _______,        _______,                   _______,   _______                                             \
 ),
 /* L4
  * +------+----------------------------------+                             +-----------------------------------------+
@@ -225,13 +232,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                    +-------------+               +-------------+
  */
 [_UTIL] = LAYOUT(
-    QK_BOOT, KC_KB_POWER,      KC_BRID, ___, KC_BRIU, ___,           ___, KC_F7, KC_F8, KC_F9, KC_F10, QK_UNICODE_MODE_LINUX, \
-    ___,     KC_SLEP,  KC_VOLD, KC_MUTE, KC_VOLU, ___,                                 ___, KC_F4, KC_F5, KC_F6, KC_F11, QK_UNICODE_MODE_MACOS, \
-    ___,     KC_WAKE, KC_MPRV, KC_MPLY, KC_MNXT, ___,                                ___, KC_F1, KC_F2, KC_F3, KC_F12, QK_UNICODE_MODE_WINDOWS, \
-                      ___, ___,                                                       UG_TOGG, ___,                            \
-                                        ___, ___,                            ___, ___,                                            \
-                                        ___, ___,                            ___, ___,                                            \
-                                        ___, ___,                            ___, ___                                             \
+    QK_BOOT, KC_PWR,   KC_BRID,  _______,     KC_BRIU,     _______,           _______, KC_F7, KC_F8, KC_F9, KC_F10, QK_UNICODE_MODE_LINUX, \
+    _______,     KC_SLEP,    KC_VOLD,  KC_MUTE, KC_VOLU,     _______,                                 _______, KC_F4, KC_F5, KC_F6, KC_F11, QK_UNICODE_MODE_MACOS, \
+    _______,     KC_WAKE,    KC_MPRV,  KC_MPLY, KC_MNXT,     _______,                                _______, KC_F1, KC_F2, KC_F3, KC_F12, QK_UNICODE_MODE_WINDOWS, \
+                      _______, _______,                                                       UG_TOGG, _______,                            \
+                                        _______, __NOP__,                            __NOP__, _______,                                            \
+                                        _______, _______,                            _______, _______,                                            \
+                                        _______, _______,                            _______, _______                                             \
 ),
 
 
@@ -252,13 +259,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                    +-------------+               +-------------+
  */
 [_UNICODE] = LAYOUT(
-    ___, UC(0x0103), ___, ___, ___, UC(0x021B),                    ___, ___, UC(0x00EE), ___, ___, ___, \
-    ___, UC(0x00E2), UC(0x0219), ___, ___, ___,           ___, ___, ___, ___, ___, ___, \
-    ___, ___, ___, ___, ___, ___,                    ___, ___, ___, ___, ___, ___, \
-                      ___, ___,                      ___, ___,                    \
-                      ___, ___,                      ___, ___,                   \
-                      ___, ___,                      ___, ___,                  \
-                      ___, ___,                      ___, ___                  \
+    _______, RO_A_U, _______, _______, _______, RO_T,                    _______, _______, RO_I, _______, _______, _______, \
+    _______, RO_A_D, RO_S, _______, _______, _______,           _______, _______, _______, _______, _______, _______, \
+    _______, _______, _______, _______, _______, _______,                    _______, _______, _______, _______, _______, _______, \
+                      _______, _______,                      _______, _______,                    \
+                      _______, __NOP__,                      __NOP__, _______,                   \
+                      _______, _______,                      _______, _______,                  \
+                      _______, _______,                      _______, _______                  \
 )
 };
 
