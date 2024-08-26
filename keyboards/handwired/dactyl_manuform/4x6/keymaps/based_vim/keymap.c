@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "timer.h"
 
 // FILLERS
 #define _______ KC_TRANSPARENT
@@ -51,8 +50,6 @@
 #define RO_A_D UC(0x00E2)
 #define RO_S UC(0x0219)
 #define RO_I UC(0x00EE)
-
-static uint16_t rgb_timer;
 
 // RGB colors related to layers
 const rgblight_segment_t PROGMEM base_layer_rgb[] = RGBLIGHT_LAYER_SEGMENTS(
@@ -124,40 +121,26 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-void matrix_scan_user(void) {
-    // Reset timer on any key press
-    if (timer_elapsed(rgb_timer) > 600000) {  // 600,000 ms = 10 minutes
-        rgblight_disable_noeeprom();          // Turn off RGB without saving to EEPROM
-    }
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        rgblight_enable_noeeprom();           // Turn on RGB without saving to EEPROM
-        rgb_timer = timer_read();             // Reset timer on key press
-    }
-    return true;
-}
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* BASE
  * +-----------------------------------------+                          +-----------------------------------------+
- * |      |   Q  |   W  |HYPR/E|   R  |   T  |                          |   Y  |   U  |   I  |   O  |   P  |UNICOD|
+ * | ENTER|   Q  |   W  |HYPR/E|   R  |   T  |                          |   Y  |   U  |   I  |   O  |   P  |UNICOD|
  * |------+------+------+------+------+------|                          |------+------+------+------+------+------|
- * | CMD  |A/NAV |S/CTRL|D/CMD |F/ALT |   G  |                          |   H  | J/ALT|K/CMD |L/CTRL| ;/NAV| ALT  |
+ * |      |A/NAV |S/CTRL|D/CMD |F/ALT |   G  |                          |   H  | J/ALT|K/CMD |L/CTRL| ;/NAV|      |
  * |------+------+------+------+------+------|                          |------+------+------+------+------+------|
- * | CTRL |   Z  |   X  |   C  |   V  |   B  |                          |   N  |   M  |   ,  |   .  |   /  | CTRL |
+ * | TMUX |   Z  |   X  |   C  |   V  |   B  |                          |   N  |   M  |   ,  |   .  |   /  | TMUX |
  * +------+------+------+------+-------------+                          +-------------+------+------+------+------+
  *               |      |      |                                                      |      |      |
  *               +-------------+--------------------+            +------+-------------+-------------+
- *                             |  L1  | UTIL |      |            |      | UTIL |  L2  |
+ *                             |  L1  | UTIL |TYPING|            |      | UTIL |  L2  |
  *                             |------+------|------|            |------|------+------|
  *                                    |SPC/SH|      |            |      |ENT/SH|
  *                                    +-------------+            +-------------+
  */
 [_BASE] = LAYOUT(                                                                                                   \
-    _______,  KC_Q,   KC_W,    HYPR_E,  KC_R,    KC_T,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,   UNICODE, \
-    KC_LSFT, HOME_A,  HOME_S,  HOME_D,  HOME_F,  KC_G,        KC_H,    HOME_J,  HOME_K,  HOME_L,  HOME_SC, _______, \
+    KC_ENT,  KC_Q,    KC_W,    HYPR_E,  KC_R,    KC_T,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,   UNICODE, \
+    _______, HOME_A,  HOME_S,  HOME_D,  HOME_F,  KC_G,        KC_H,    HOME_J,  HOME_K,  HOME_L,  HOME_SC, _______, \
     TMUX_PR, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,        KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, TMUX_PR, \
                       _______, _______,                                         _______, _______,                   \
                                         SYM1,    __NOP__,     __NOP__, SYM2,                                        \
