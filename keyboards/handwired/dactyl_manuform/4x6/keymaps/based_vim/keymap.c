@@ -172,7 +172,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         KC_SPC,  KC_LALT,     KC_RGUI, KC_ENT,                                      \
                                         UTIL,    BASE_DF,     _______, UTIL                                         \
 ),
-
 /* L1
  * +-----------------------------------------+                             +-----------------------------------------+
  * |      |      |      |      |PRTSCR|      |                             |      |   7  |   8  |   9  |   :  |      |

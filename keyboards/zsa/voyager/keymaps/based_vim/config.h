@@ -2,41 +2,38 @@
   Set any config.h overrides for your specific keymap here.
   See config.h options at https://docs.qmk.fm/#/config_options?id=the-configh-file
 */
-#define ORYX_CONFIGURATOR
-#undef TAPPING_TERM
-#define TAPPING_TERM 100
-
-#undef RGB_MATRIX_TIMEOUT
+#define TAPPING_TERM 120
 #define RGB_MATRIX_TIMEOUT 600000
-
+// sets the number of milliseconds to pause after sending a wakeup packet.
+// Disabled by default, you might want to set this to 200 (or higher) if
+// the keyboard does not wake up properly after suspending.
 #define USB_SUSPEND_WAKEUP_DELAY 0
+
 #undef MOUSEKEY_INTERVAL
-#define MOUSEKEY_INTERVAL 13
-
 #undef MOUSEKEY_WHEEL_DELAY
-#define MOUSEKEY_WHEEL_DELAY 220
-
 #undef MOUSEKEY_MAX_SPEED
-#define MOUSEKEY_MAX_SPEED 14
-
 #undef MOUSEKEY_TIME_TO_MAX
-#define MOUSEKEY_TIME_TO_MAX 45
-
 #undef MOUSEKEY_WHEEL_INTERVAL
-#define MOUSEKEY_WHEEL_INTERVAL 73
-
 #undef MOUSEKEY_WHEEL_MAX_SPEED
-#define MOUSEKEY_WHEEL_MAX_SPEED 16
-
 #undef MOUSEKEY_WHEEL_TIME_TO_MAX
+
+#define MOUSEKEY_INTERVAL 14
+#define MOUSEKEY_MAX_SPEED 20
+#define MOUSEKEY_TIME_TO_MAX 25
+
+#define MOUSEKEY_WHEEL_DELAY 220
+#define MOUSEKEY_WHEEL_INTERVAL 73
+#define MOUSEKEY_WHEEL_MAX_SPEED 12
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 20
 
 #define CAPS_LOCK_STATUS
 #define FIRMWARE_VERSION u8"o53y4/Jnbym"
 #define RAW_USAGE_PAGE 0xFF60
 #define RAW_USAGE_ID 0x61
+// Set a limit of 8 layers to save some memory.
 #define LAYER_STATE_8BIT
-#define HCS(report) host_consumer_send(record->event.pressed ? report : 0); return false
+
+#define UNICODE_SELECTED_MODES UNICODE_MODE_LINUX, UNICODE_MODE_MACOS
 
 #define RGB_MATRIX_STARTUP_SPD 60
 

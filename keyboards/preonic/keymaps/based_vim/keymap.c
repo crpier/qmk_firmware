@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_SYM2] = LAYOUT_preonic_grid(
- KC_PIPE, KC_AMPERSAND, KC_CIRCUMFLEX, KC_DOLLAR, KC_EXCLAIM, _______,_______, _______,KC_LEFT_CURLY_BRACE, KC_RIGHT_CURLY_BRACE, _______, _______, 
+ KC_PIPE, KC_AMPERSAND, KC_CIRCUMFLEX, KC_DOLLAR, KC_EXCLAIM, _______,_______, _______,KC_LEFT_CURLY_BRACE, KC_RIGHT_CURLY_BRACE, _______, _______,
  KC_EQUAL, KC_PLUS, KC_UNDERSCORE, KC_MINUS, KC_AT, _______,_______, _______,KC_LEFT_BRACKET, KC_RIGHT_BRACKET, KC_BACKSPACE, KC_PERCENT,
  KC_TILDE, KC_GRAVE, KC_QUOTE, KC_DOUBLE_QUOTE, KC_HASH, _______,_______, _______, KC_LEFT_PAREN, KC_RIGHT_PAREN, KC_ASTERISK, KC_BACKSLASH,
  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -116,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_UTIL] = LAYOUT_preonic_grid(
  KC_KB_POWER, KC_BRIGHTNESS_DOWN, KC_BRIGHTNESS_UP, _______, _______, _______, _______,_______, KC_F7, KC_F8, KC_F9,KC_F10,
- KC_SYSTEM_SLEEP, KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP, KC_AUDIO_MUTE, _______, _______, _______, _______,KC_F4, KC_F5, KC_F6, KC_F11, 
+ KC_SYSTEM_SLEEP, KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP, KC_AUDIO_MUTE, _______, _______, _______, _______,KC_F4, KC_F5, KC_F6, KC_F11,
  KC_WAKE, KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK, _______, _______, _______, _______,KC_F1, KC_F2, KC_F3, KC_F12,
  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -136,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_NAV] = LAYOUT_preonic_grid(
- _______, KC_MS_BTN1, KC_MS_UP, KC_MS_BTN2, _______, _______,_______,KC_HOME, KC_PAGE_DOWN, KC_PAGE_UP, KC_END, _______, 
+ _______, KC_MS_BTN1, KC_MS_UP, KC_MS_BTN2, _______, _______,_______,KC_HOME, KC_PAGE_DOWN, KC_PAGE_UP, KC_END, _______,
  _______, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, _______, _______,_______,KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT,_______,
  KC_MS_WH_LEFT, KC_MS_WH_UP, KC_MS_WH_DOWN, KC_MS_WH_RIGHT, _______, _______, _______, _______,KC_MS_ACCEL0,KC_MS_ACCEL1, KC_MS_ACCEL2, _______,
  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -158,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_UNICODE] = LAYOUT_preonic_grid(
- UC(0x0103), _______, _______, _______, UC(0x021B), _______,_______, _______,_______, UC(0x00EE), _______, _______, 
+ UC(0x0103), _______, _______, _______, UC(0x021B), _______,_______, _______,_______, UC(0x00EE), _______, _______,
  UC(0x00E2), UC(0x0219), _______, _______, _______, _______,_______, _______,_______, _______, _______, _______,
  _______, _______, _______, _______, _______, _______,_______, _______, _______, _______, _______, _______,
  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
