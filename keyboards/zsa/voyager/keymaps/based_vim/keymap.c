@@ -2,12 +2,16 @@
 #include "version.h"
 #define MOON_LED_LEVEL LED_LEVEL
 
+static bool     jig_on  = false;
+static uint32_t jig_tim = 0;
+
 // FILLERS
 #define _______ _______
 
 enum custom_keycodes {
   RGB_SLD = SAFE_RANGE,
   MAC_LOCK,
+  JIGGLR,
 };
 
 // Layers
@@ -64,6 +68,7 @@ enum custom_keycodes {
 #define TG_NKRO    QK_MAGIC_TOGGLE_NKRO
 #define UTF8_LI    QK_UNICODE_MODE_LINUX
 #define UTF8_MA    QK_UNICODE_MODE_MACOS
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* +-----------------------------------------------+                     +-----------------------------------------------+
@@ -157,7 +162,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             KC_DEL ,_______,      _______,KC_INS
   ),
 /* +-----------------------------------------------+                     +-----------------------------------------------+
- * |       |RGB S D|RGB S U|RGB TOG|STP ANI|NXT ANI|                     |       |TAPT DN|TAPT PR|TAPT UP|TOGNKRO|       |
+ * |       |RGB S D|RGB S U|RGB TOG|STP ANI|NXT ANI|                     |       |TAPT DN|TAPT PR|TAPT UP|TOGNKRO|JIGGLER|
  * +-----------------------------------------------+                     +-----------------------------------------------+
  * |       |       | BRI U |       | BRI D |       |                     |       |  F7   |   F8  |   F9  |  F10  |UTF8_LI|
  * |-------+-------+-------+-------+-------+-------+                     |-------+-------+-------+-------+-------+-------|
@@ -168,7 +173,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                         |       |       |     |       |       |
  *                                         +-------+-------+     +-------+-------+ */
   [UTIL] = LAYOUT_voyager(
-    _______,RGB_SPD,RGB_SPI,RGB_TOG,RGB_SLD,RGB_MOD,                      _______,TAPDN   ,TAPPRNT,TAPUP ,TG_NKRO,_______,
+    _______,RGB_SPD,RGB_SPI,RGB_TOG,RGB_SLD,RGB_MOD,                      _______,TAPDN   ,TAPPRNT,TAPUP ,TG_NKRO,JIGGLR ,
     _______,_______,KC_BRID,_______,KC_BRIU,_______,                      _______,KC_F7   ,KC_F8  ,KC_F9 ,KC_F10 ,UTF8_LI,
     _______,_______,KC_VOLD,KC_MUTE,KC_VOLU,_______,                      _______,KC_F4   ,KC_F5  ,KC_F6 ,KC_F11 ,UTF8_MA,
     _______,_______,KC_MPRV,KC_MPLY,KC_MNXT,_______,                      _______,KC_F1   ,KC_F2  ,KC_F3 ,KC_F12 ,_______,
@@ -190,11 +195,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgblight_mode(1);
       }
       return false;
+    case JIGGLR:
+      if (record->event.pressed) {
+        jig_on = !jig_on;
+        jig_tim = record->event.time;
+      }
+      return false;
   }
   return true;
+}
+
+void housekeeping_task_user(void) {
+    if (jig_on && timer_elapsed32(jig_tim) >= 30000) {
+        tap_code(KC_F15);
+        jig_tim = timer_read32();
+    }
 }
 
 
 // This stub must be here because reasons, ok?
 void webhid_leds(void) {}
-
