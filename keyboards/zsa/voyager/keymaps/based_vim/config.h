@@ -2,7 +2,7 @@
   Set any config.h overrides for your specific keymap here.
   See config.h options at https://docs.qmk.fm/#/config_options?id=the-configh-file
 */
-#define TAPPING_TERM 120
+#define TAPPING_TERM 110
 #define RGB_MATRIX_TIMEOUT 600000
 // sets the number of milliseconds to pause after sending a wakeup packet.
 // Disabled by default, you might want to set this to 200 (or higher) if
