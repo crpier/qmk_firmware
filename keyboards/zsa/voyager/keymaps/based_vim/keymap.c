@@ -10,7 +10,6 @@ static uint32_t jig_tim = 0;
 
 enum custom_keycodes {
   RGB_SLD = SAFE_RANGE,
-  MAC_LOCK,
   JIGGLR,
 };
 
@@ -163,11 +162,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             KC_DEL ,_______,      _______,KC_INS
   ),
 /* +-----------------------------------------------+                     +-----------------------------------------------+
- * |       |RGB S D|RGB S U|RGB TOG|STP ANI|NXT ANI|                     |       |TAPT DN|TAPT PR|TAPT UP|TOGNKRO|JIGGLER|
+ * |       |RGB SPD|RGB SPI|RGB TOG|RGB SLD|RGB MOD|                     |       |TAPT DN|TAPT PR|TAPT UP|TOGNKRO|JIGGLER|
  * +-----------------------------------------------+                     +-----------------------------------------------+
- * |       |       | BRI U |       | BRI D |       |                     |       |  F7   |   F8  |   F9  |  F10  |UTF8_LI|
+ * |       |       | BRI D |       | BRI U |       |                     |       |  F7   |   F8  |   F9  |  F10  |UTF8_LI|
  * |-------+-------+-------+-------+-------+-------+                     |-------+-------+-------+-------+-------+-------|
- * |       |       |VOL UP | MUTE  |VOL DN |       |                     |       |  F4   |   F5  |   F6  |  F11  |UTF8_MO|
+ * |       |       |VOL DN | MUTE  |VOL UP |       |                     |       |  F4   |   F5  |   F6  |  F11  |UTF8_MA|
  * |-------+-------+-------+-------+-------+-------+                     |-------+-------+-------+-------+-------+-------|
  * |       |       | PREV  | PLAY  | NEXT  |       |                     |       |  F1   |   F2  |   F3  |  F12  |       |
  * +-------+-------+-------+-------+-------+-------+-------+     +-------+-------+-------+-------+-------+-------+-------+
@@ -187,10 +186,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // TODO: still no idea what this does, or if it should be enabled lol
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case MAC_LOCK:
-      host_consumer_send(record->event.pressed ? 0x19E : 0);
-      return false;
-
     case RGB_SLD:
       if (record->event.pressed) {
         rgblight_mode(1);
