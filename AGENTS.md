@@ -5,16 +5,17 @@ The formatting in the files is applied by hand, so that it's easy to read for hu
 
 ## Core tenets
 
-* **Everything** needs to be documented.
+* **Everything changed in the current prompt** needs to be documented.
 * Comments also describe the keyboard layout using ASCII art.
 * Comments and ASCII art must be kept up to date.
-* Do **not** make changes outside beyond the scope of the prompt.
+* Do **not** make changes beyond the scope of the prompt.
 * Do **not** use automated formatting tools.
 
 ## Style
 
 All key variable names should be at most 7 characters.
-Builtin keycodes from QMK should always have an alias that is at most 7 characters.
+Builtin keycodes from QMK must always use an alias that is at most 7 characters.
+All keycodes in layout files must be at most 7 characters so they fit in the ASCII art and code.
 
 ## Testing
 
