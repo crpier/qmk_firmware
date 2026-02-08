@@ -68,6 +68,7 @@ enum custom_keycodes {
 #define TG_NKRO    QK_MAGIC_TOGGLE_NKRO
 #define UTF8_LI    QK_UNICODE_MODE_LINUX
 #define UTF8_MA    QK_UNICODE_MODE_MACOS
+#define WAKEUP     KC_F15
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -197,6 +198,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case JIGGLR:
       if (record->event.pressed) {
+        tap_code(WAKEUP);
         jig_on = !jig_on;
         jig_tim = record->event.time;
       }
@@ -206,10 +208,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void housekeeping_task_user(void) {
+    // Send a periodic wake key while jiggler mode is enabled.
     if (jig_on && timer_elapsed32(jig_tim) >= 30000) {
-        tap_code(KC_F15);
+        tap_code(WAKEUP);
         jig_tim = timer_read32();
     }
+}
+
+bool rgb_matrix_indicators_user(void) {
+    // Paint all LEDs green while jiggler mode is active.
+    if (jig_on) {
+        rgb_matrix_set_color_all(0x00, 0x80, 0x00);
+    }
+    return false;
 }
 
 
