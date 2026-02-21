@@ -65,6 +65,7 @@ enum custom_keycodes {
 #define TAPPRNT    QK_DYNAMIC_TAPPING_TERM_PRINT
 #define TAPUP      QK_DYNAMIC_TAPPING_TERM_UP
 #define TG_NKRO    QK_MAGIC_TOGGLE_NKRO
+#define PRTSCR     KC_PSCR
 #define UTF8_LI    QK_UNICODE_MODE_LINUX
 #define UTF8_MA    QK_UNICODE_MODE_MACOS
 #define WAKEUP     KC_F15
@@ -168,7 +169,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-------+-------+-------+-------+-------+-------+                     |-------+-------+-------+-------+-------+-------|
  * |       |       |VOL DN | MUTE  |VOL UP |       |                     |       |  F4   |   F5  |   F6  |  F11  |UTF8_MA|
  * |-------+-------+-------+-------+-------+-------+                     |-------+-------+-------+-------+-------+-------|
- * |       |       | PREV  | PLAY  | NEXT  |       |                     |       |  F1   |   F2  |   F3  |  F12  |       |
+ * |       |       | PREV  | PLAY  | NEXT  |       |                     |       |  F1   |   F2  |   F3  |  F12  | PRTSCR|
  * +-------+-------+-------+-------+-------+-------+-------+     +-------+-------+-------+-------+-------+-------+-------+
  *                                         |       |       |     |       |       |
  *                                         +-------+-------+     +-------+-------+ */
@@ -176,7 +177,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,RGB_SPD,RGB_SPI,RGB_TOG,RGB_SLD,RGB_MOD,                      _______,TAPDN   ,TAPPRNT,TAPUP ,TG_NKRO,JIGGLR ,
     _______,_______,KC_BRID,_______,KC_BRIU,_______,                      _______,KC_F7   ,KC_F8  ,KC_F9 ,KC_F10 ,UTF8_LI,
     _______,_______,KC_VOLD,KC_MUTE,KC_VOLU,_______,                      _______,KC_F4   ,KC_F5  ,KC_F6 ,KC_F11 ,UTF8_MA,
-    _______,_______,KC_MPRV,KC_MPLY,KC_MNXT,_______,                      _______,KC_F1   ,KC_F2  ,KC_F3 ,KC_F12 ,_______,
+    _______,_______,KC_MPRV,KC_MPLY,KC_MNXT,_______,                      _______,KC_F1   ,KC_F2  ,KC_F3 ,KC_F12 ,PRTSCR ,
                                             _______,_______,      _______,_______
   ),
 };
