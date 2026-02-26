@@ -14,7 +14,7 @@ enum custom_keycodes {
 };
 
 // Layers
-#define BASE      0
+#define VIM       0
 #define TYPING    1
 #define SYM1      2
 #define SYM2      3
@@ -25,7 +25,8 @@ enum custom_keycodes {
 // Layer change
 #define OSLSYM1    OSL(SYM1)
 #define OSLSYM2    OSL(SYM2)
-#define MOUTIL     MO(UTIL)
+#define MO_UTIL    MO(UTIL)
+#define MO_NAV     MO(NAV)
 
 // Layer change + modifier
 #define NAV_CTL    LM(NAV, MOD_LCTL)
@@ -34,7 +35,7 @@ enum custom_keycodes {
 
 // Change default layer
 #define DF_TYPE    DF(TYPING)
-#define DF_BASE    DF(BASE)
+#define DF_VIM     DF(VIM)
 
 // Left home row mods
 #define HOME_A     LT(NAV, KC_A)
@@ -57,9 +58,6 @@ enum custom_keycodes {
 #define SFT_SPC    LSFT_T(KC_SPACE)
 #define SFT_ENT    LSFT_T(KC_ENTER)
 
-// App specific keys
-#define TMUX_PR    LCTL(KC_S)
-
 // Aliases for long names
 #define TAPDN      QK_DYNAMIC_TAPPING_TERM_DOWN
 #define TAPPRNT    QK_DYNAMIC_TAPPING_TERM_PRINT
@@ -73,40 +71,40 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* +-----------------------------------------------+                     +-----------------------------------------------+
- * |       |       |NAV+CTL|NAV+CMD|NAV+ALT|       |                     |       |       |       |       |       |       |
+ * |  CMD  |       |NAV+CTL|NAV+CMD|NAV+ALT|       |                     |       |       |       |       |       |DF_TYPE|
  * +-----------------------------------------------+                     +-----------------------------------------------+
- * |       |   Q   |   W   |HYPR/E | NAV/R |   T   |                     |   Y   | NAV/U |   I   |   O   |   P   |       |
+ * |  ALT  |   Q   |   W   |HYPR/E | NAV/R |   T   |                     |   Y   | NAV/U |   I   |   O   |   P   | NAV   |
  * |-------+-------+-------+-------+-------+-------+                     |-------+-------+-------+-------+-------+-------|
- * |       | A/NAV |S/CTRL | D/CMD | F/ALT |   G   |                     |   H   | J/ALT | K/CMD |L/CTRL | ;/NAV |       |
+ * | SHIFT | A/NAV |S/CTRL | D/CMD | F/ALT |   G   |                     |   H   | J/ALT | K/CMD |L/CTRL | ;/NAV | SHIFT |
  * |-------+-------+-------+-------+-------+-------+                     |-------+-------+-------+-------+-------+-------|
- * | TMUX  |   Z   |   X   |   C   |   V   |   B   |                     |   N   |   M   |   ,   |   .   |   /   |  NAV  |
+ * | CTRL  |   Z   |   X   |   C   |   V   |   B   |                     |   N   |   M   |   ,   |   .   |   /   | CTRL  |
  * +-------+-------+-------+-------+-------+-------+-------+     +-------+-------+-------+-------+-------+-------+-------+
  *                                         |LAYER_1|SFT/SPC|     |SFT/ENT|LAYER_2|
  *                                         +-------+-------+     +-------+-------+ */
-  [BASE] = LAYOUT_voyager(
-    _______,_______,NAV_CTL,NAV_GUI,NAV_ALT,_______,                      _______,_______,_______,_______,_______,DF_TYPE,
-    _______,KC_Q   ,KC_W   ,HYPER_E,NAV_R  ,KC_T   ,                      KC_Y   ,NAV_U  ,KC_I   ,KC_O   ,KC_P   ,_______,
-    _______,HOME_A ,HOME_S ,HOME_D ,HOME_F ,KC_G   ,                      KC_H   ,HOME_J ,HOME_K ,HOME_L ,HOME_SC,_______,
-    TMUX_PR,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,                      KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,_______,
+  [VIM] = LAYOUT_voyager(
+    KC_LGUI,_______,NAV_CTL,NAV_GUI,NAV_ALT,_______,                      _______,_______,_______,_______,_______,DF_TYPE,
+    KC_LALT,KC_Q   ,KC_W   ,HYPER_E,NAV_R  ,KC_T   ,                      KC_Y   ,NAV_U  ,KC_I   ,KC_O   ,KC_P   ,MO_NAV ,
+    KC_LSFT,HOME_A ,HOME_S ,HOME_D ,HOME_F ,KC_G   ,                      KC_H   ,HOME_J ,HOME_K ,HOME_L ,HOME_SC,KC_LSFT,
+    KC_LCTL,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,                      KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,KC_LCTL,
                                             OSLSYM1,SFT_SPC,      SFT_ENT,OSLSYM2
   ),
 /* +-----------------------------------------------+                     +-----------------------------------------------+
- * |  CMD  |   1   |   2   |   3   |   4   |   5   |                     |   6   |   7   |   8   |   9   |   0   |       |
+ * |  CMD  |       |NAV+CTL|NAV+CMD|NAV+ALT|       |                     |       |       |       |       |       |DF_VIM |
  * +-----------------------------------------------+                     +-----------------------------------------------+
- * |  ALT  |   Q   |   W   |   E   |   R   |   T   |                     |   Y   |   U   |   I   |   O   |   P   |       |
+ * |  ALT  |   Q   |   W   |   E   |   R   |   T   |                     |   Y   |   U   |   I   |   O   |   P   | NAV   |
  * |-------+-------+-------+-------+-------+-------+                     |-------+-------+-------+-------+-------+-------|
  * | SHIFT |   A   |   S   |   D   |   F   |   G   |                     |   H   |   J   |   K   |   L   |   ;   | SHIFT |
  * |-------+-------+-------+-------+-------+-------+                     |-------+-------+-------+-------+-------+-------|
  * | CTRL  |   Z   |   X   |   C   |   V   |   B   |                     |   N   |   M   |   ,   |   .   |   /   | CTRL  |
  * +-------+-------+-------+-------+-------+-------+-------+     +-------+-------+-------+-------+-------+-------+-------+
- *                                         | SYM1  |SFT/SCP|     |SFT/ENT| SYM2  |
+ *                                         | SYM1  | SPACE |     | ENTER | SYM2  |
  *                                         +-------+-------+     +-------+-------+ */
   [TYPING] = LAYOUT_voyager(
-    KC_LGUI,KC_1   ,KC_2   ,KC_3   ,KC_4   ,KC_5   ,                      KC_6   ,KC_7   ,KC_8   ,KC_9   ,KC_0   ,DF_BASE,
-    KC_LALT,KC_Q   ,KC_W   ,KC_E   ,KC_R   ,KC_T   ,                      KC_Y   ,KC_U   ,KC_I   ,KC_O   ,KC_P   ,_______,
+    KC_LGUI,_______,NAV_CTL,NAV_GUI,NAV_ALT,_______,                      _______,_______,_______,_______,_______,DF_VIM ,
+    KC_LALT,KC_Q   ,KC_W   ,KC_E   ,KC_R   ,KC_T   ,                      KC_Y   ,KC_U   ,KC_I   ,KC_O   ,KC_P   ,MO_NAV ,
     KC_LSFT,KC_A   ,KC_S   ,KC_D   ,KC_F   ,KC_G   ,                      KC_H   ,KC_J   ,KC_K   ,KC_L   ,KC_SCLN,KC_LSFT,
     KC_LCTL,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,                      KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,KC_LCTL,
-                                            OSLSYM1,SFT_SPC,      SFT_ENT,OSLSYM2
+                                            OSLSYM1,KC_SPACE,    KC_ENTER,OSLSYM2
   ),
 /* +-----------------------------------------------+                     +-----------------------------------------------+
  * |       |       |       |       |       |       |                     |       |       |       |       |       |       |
@@ -142,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,KC_PIPE,KC_AMPR,KC_CIRC,KC_DLR ,KC_EXLM,                      _______,KC_LCBR,KC_RCBR,_______,_______,_______,
     _______,KC_EQL ,KC_PLUS,KC_UNDS,KC_MINS,KC_AT  ,                      _______,KC_LBRC,KC_RBRC,KC_BSPC,KC_PERC,_______,
     _______,KC_TILD,KC_GRV ,KC_QUOT,KC_DQUO,KC_HASH,                      _______,KC_LPRN,KC_RPRN,KC_ASTR,KC_BSLS,_______,
-                                            MOUTIL ,_______,      _______,_______
+                                            MO_UTIL,_______,      _______,_______
   ),
 /* +-----------------------------------------------+                     +-----------------------------------------------+
  * |       |       |       |       |       |       |                     |       |       |       |       |       |       |
