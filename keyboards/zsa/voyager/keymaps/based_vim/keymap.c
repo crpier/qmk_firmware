@@ -51,8 +51,6 @@ enum custom_keycodes {
 
 // Dual function letters
 #define HYPER_E    HYPR_T(KC_E)
-#define NAV_R      LT(NAV, KC_R)
-#define NAV_U      LT(NAV, KC_U)
 
 // Other dual function keys
 #define SFT_SPC    LSFT_T(KC_SPACE)
@@ -73,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* +-----------------------------------------------+                     +-----------------------------------------------+
  * |  CMD  |       |NAV+CTL|NAV+CMD|NAV+ALT|       |                     |       |       |       |       |       |DF_TYPE|
  * +-----------------------------------------------+                     +-----------------------------------------------+
- * |  ALT  |   Q   |   W   |HYPR/E | NAV/R |   T   |                     |   Y   | NAV/U |   I   |   O   |   P   | NAV   |
+ * |  ALT  |   Q   |   W   |HYPR/E |   R   |   T   |                     |   Y   |   U   |   I   |   O   |   P   | NAV   |
  * |-------+-------+-------+-------+-------+-------+                     |-------+-------+-------+-------+-------+-------|
  * | SHIFT | A/NAV |S/CTRL | D/CMD | F/ALT |   G   |                     |   H   | J/ALT | K/CMD |L/CTRL | ;/NAV | SHIFT |
  * |-------+-------+-------+-------+-------+-------+                     |-------+-------+-------+-------+-------+-------|
@@ -83,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                         +-------+-------+     +-------+-------+ */
   [VIM] = LAYOUT_voyager(
     KC_LGUI,_______,NAV_CTL,NAV_GUI,NAV_ALT,_______,                      _______,_______,_______,_______,_______,DF_TYPE,
-    KC_LALT,KC_Q   ,KC_W   ,HYPER_E,NAV_R  ,KC_T   ,                      KC_Y   ,NAV_U  ,KC_I   ,KC_O   ,KC_P   ,MO_NAV ,
+    KC_LALT,KC_Q   ,KC_W   ,HYPER_E,KC_R   ,KC_T   ,                      KC_Y   ,KC_U   ,KC_I   ,KC_O   ,KC_P   ,MO_NAV ,
     KC_LSFT,HOME_A ,HOME_S ,HOME_D ,HOME_F ,KC_G   ,                      KC_H   ,HOME_J ,HOME_K ,HOME_L ,HOME_SC,KC_LSFT,
     KC_LCTL,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,                      KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,KC_LCTL,
                                             OSLSYM1,SFT_SPC,      SFT_ENT,OSLSYM2
